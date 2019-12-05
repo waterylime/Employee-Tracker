@@ -47,10 +47,10 @@ module.exports = new DB(connection);
 
 
 
-function startApp() {
+startApp() => {
    inquirer
       .prompt({
-         name: “choice”,
+         name: “action”,
          type: “list”,
          message: “Welcome to our employee database! What would you like to do?“,
          choices: [
@@ -62,7 +62,7 @@ function startApp() {
                “Add a role”,
                “EXIT”
          ]
-      }).then(function (answer) {
+      }).then( (answer)=> {
          switch (answer.action) {
             case “View all employees”:
                viewEmployees();
@@ -90,33 +90,33 @@ function startApp() {
          }
       })
 }
-function viewEmployees() {
-   var query = “SELECT * FROM employees”;
-   connection.query(query, function(err, res) {
+viewEmployees() =>  {
+   let query = “SELECT * FROM employees”;
+   connection.query(query, (err, res) => {
       if (err) throw err;
       console.log(res.length + ” employees found!“);
       console.table(’All Employees:’, res);
       startApp();
    })
 }
-function viewDepartments() {
-   var query = “SELECT * FROM department”;
-   connection.query(query, function(err, res) {
+viewDepartments()=>  {
+   let query = “SELECT * FROM department”;
+   connection.query(query, (err, res) => {
       if(err)throw err;
       console.table(’All Departments:’, res);
       startApp();
    })
 }
-function viewRoles() {
-   var query = “SELECT * FROM role”;
+ viewRoles() => {
+   let query = “SELECT * FROM role”;
    connection.query(query, function(err, res){
       if (err) throw err;
       console.table(’All roles:’, res);
       startApp();
    })
 }
-function addEmployee() {
-   connection.query(“SELECT * FROM role”, function (err, res) {
+addEmployee() => {
+   connection.query(“SELECT * FROM role”, (err, res) => {
       if (err) throw err;
       inquirer
          .prompt([
@@ -133,8 +133,8 @@ function addEmployee() {
             {
                name: “choice”,
                type: “rawlist”,
-               choices: function() {
-                  var roleArray = [];
+               choices:() => {
+                  let roleArray = [];
                   for (let i = 0; i < res.length; i++) {
                      roleArray.push(res[i].title);
                   }
@@ -142,13 +142,13 @@ function addEmployee() {
                },
                message: “What is this employee’s role? ”
             },
-            ]). then(function (answer) {
+            ]). then( (answer)=>  {
             })
    })
 }
-function addDepartment() {
+ addDepartment() => {
 }
-function addRole() {
+addRole() => {
 }
-function endApp() {
+endApp()=>  {
 }
