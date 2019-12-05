@@ -1,13 +1,15 @@
 const util = require ('util')
 const mysql = require ('mysql')
-const inquirer = require(“inquirer”);
+
+
+require('dotenv').config();
 
 const connection = mysql.createConnection({
     host: 'localhost',
-    user: 'root',
-    password: 'Sootball12',
+    user: process.env.SQL_USER,
+    password: process.env.SQL_PASSWORD,
     database: 'employees',
 })
 connection.connect()
 connection.query = util.promisify(connection.query)
-module.exports = connection
+module.exports = connection;
